@@ -1,0 +1,21 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>LOGIN</h1>
+
+        {% for message in get_flashed_messages() %}
+            <div> {{ message }} </div>
+        {% endfor %}
+
+        {% set url_action = url_for('login') %}
+        {% if request.args.get('next') %}
+            {% set url_action = url_for('login', next=request.args.get('next')) %}
+        {% endif %}
+
+        <form action="{{ url_action }}" method="POST">
+            <input type="password" name="password"></input>
+            <input type="submit" value="Login"></input>
+        </form>
+    </body>
+</html>
