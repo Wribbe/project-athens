@@ -1,0 +1,13 @@
+body {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+}
+
+.flex100 {
+    flex: 1;
+}

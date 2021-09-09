@@ -9,6 +9,7 @@
 
         <nav>
             {% if 'user' in session %}
+                <div class="flex100"></div>
                 <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
         </nav>

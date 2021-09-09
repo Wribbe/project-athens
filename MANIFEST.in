@@ -1,1 +1,2 @@
 graft athens/templates
+graft athens/static
