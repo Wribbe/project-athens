@@ -63,6 +63,7 @@ def login():
         if not session.get('user'):
             flash("Incorrect password")
             return redirect(url_for('login', next=endpoint_next))
+        flash(f"Welcome to Athens {session['user'].title()}!")
 
         if endpoint_next and endpoint_next in app.view_functions:
             return redirect(url_for(endpoint_next))
@@ -76,6 +77,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
+    flash("Successfully logged out.")
     return redirect(url_for('index'))
 
 
