@@ -92,6 +92,41 @@ def image(filename):
     return send_from_directory(PATH_IMAGES, filename)
 
 
+@public
+@app.route('/test/generate')
+def test_generate():
+    num = 30
+    if 'num' in request.args and request.args['num'].isdigit():
+        num = int(request.args['num'])
+
+    from PIL import Image
+    import random
+
+    width_min, width_max = 400, 1920
+    height_min, height_max = 300, 1200
+
+    index_offset = max([0] + [int(p.stem) for p in PATH_IMAGES.iterdir()])
+
+    for ii in range(num):
+
+        ii += index_offset
+        size = (
+            random.randint(width_min, width_max),
+            random.randint(width_min, width_max)
+        )
+        color = (
+            random.randint(0, 255),
+            random.randint(0, 255),
+            random.randint(0, 255),
+        )
+        image = Image.new(mode="RGB", size=size, color=color)
+        image.save(PATH_IMAGES / f'{ii:04d}.png')
+
+    flash(f"Generated {num} images")
+
+    return redirect(url_for('index'))
+
+
 def run():
     os.environ['FLASK_ENV'] = 'development'
     app.run("0.0.0.0", debug=True)
