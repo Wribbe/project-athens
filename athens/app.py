@@ -3,7 +3,8 @@ import os
 import secrets
 
 from flask import (
-    Flask, request, abort, session, render_template, redirect, url_for, flash
+    Flask, request, abort, session, render_template, redirect, url_for, flash,
+    send_from_directory
 )
 from pathlib import Path
 
@@ -23,6 +24,10 @@ PATH_PASSWORDS = PATH_DATA / 'passwords.json'
 if not PATH_PASSWORDS.is_file():
     PATH_PASSWORDS.write_text(json.dumps({}, indent=2))
 PASSWORDS = {p:u for u,p in json.loads(PATH_PASSWORDS.read_text()).items()}
+
+PATH_IMAGES = PATH_DATA / 'images'
+if not PATH_IMAGES.is_dir():
+    PATH_IMAGES.mkdir()
 
 
 def public(method):
@@ -50,7 +55,8 @@ def check_auth():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    images = [p.name for p in PATH_IMAGES.iterdir()]
+    return render_template('index.html', images=images)
 
 
 @public
@@ -79,6 +85,11 @@ def logout():
     session.clear()
     flash("Successfully logged out.")
     return redirect(url_for('index'))
+
+
+@app.route('/image/<filename>')
+def image(filename):
+    return send_from_directory(PATH_IMAGES, filename)
 
 
 def run():
