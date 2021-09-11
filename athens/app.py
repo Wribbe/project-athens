@@ -100,10 +100,11 @@ def image_at_index(num):
     return send_from_directory(PATH_IMAGES, images[num].name)
 
 
-@app.route('/queue/<int:num>')
+@app.route('/queue/<num>')
 def image_queue(num):
+    num = int(num)
     images = list(PATH_IMAGES.iterdir())
-    if num >= len(images):
+    if num >= len(images) or num < 0:
         flash("Index outside of current image queue.")
         return redirect(url_for('index'))
     return render_template('queue.html', num=num)
