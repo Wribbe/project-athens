@@ -5,20 +5,22 @@
         <title>{% block title %}{% endblock %} - Athens </title>
     </head>
     <body>
-        <h1>{% block header %}{% endblock %}</h1>
+        <header>
+            <h1>{% block header %}{% endblock %}</h1>
 
-        <nav>
-            {% if 'user' in session %}
-                <div class="flex100"></div>
-                <a href="{{ url_for('logout') }}">Logout</a>
-            {% endif %}
-        </nav>
+            <nav>
+                {% if 'user' in session %}
+                    <div class="flex100"></div>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% endif %}
+            </nav>
 
-        {% for message in get_flashed_messages() %}
-            <div> {{ message }} </div>
-        {% endfor %}
-
-        {% block content %}{% endblock %}
-
+            {% for message in get_flashed_messages() %}
+                <div> {{ message }} </div>
+            {% endfor %}
+        </header>
+        <article>
+            {% block content %}{% endblock %}
+        </article>
     </body>
 </html>

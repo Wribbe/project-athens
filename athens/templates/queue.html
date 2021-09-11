@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <img class="flex100" src="{{ url_for('image_at_index', num=num) }}"></img>
-    <a href="{{ url_for('image_queue', num=num+1)}}">Next</a>
+    <div id="wrapper-img">
+        <img src="{{ url_for('image_at_index', num=num) }}"></img>
+    </div>
+    <div><a href="{{ url_for('image_queue', num=num+1)}}">Next</a></div>
 {% endblock %}
