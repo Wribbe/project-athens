@@ -55,8 +55,10 @@ def check_auth():
 
 @app.route('/')
 def index():
-    images = [p.name for p in PATH_IMAGES.iterdir()]
-    return render_template('index.html', images=images)
+    return render_template(
+        'index.html',
+        num_images=len(list(PATH_IMAGES.iterdir()))
+    )
 
 
 @public
@@ -87,9 +89,24 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/image/<filename>')
+@app.route('/image/<string:filename>')
 def image(filename):
     return send_from_directory(PATH_IMAGES, filename)
+
+
+@app.route('/image/queue/<int:num>')
+def image_at_index(num):
+    images = list(PATH_IMAGES.iterdir())
+    return send_from_directory(PATH_IMAGES, images[num].name)
+
+
+@app.route('/queue/<int:num>')
+def image_queue(num):
+    images = list(PATH_IMAGES.iterdir())
+    if num >= len(images):
+        flash("Index outside of current image queue.")
+        return redirect(url_for('index'))
+    return render_template('queue.html', num=num)
 
 
 @public

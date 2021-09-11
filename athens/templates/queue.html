@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% block title %} Image Queue {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <img class="flex100" src="{{ url_for('image_at_index', num=num) }}"></img>
+    <a href="{{ url_for('image_queue', num=num+1)}}">Next</a>
+{% endblock %}

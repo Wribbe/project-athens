@@ -5,9 +5,16 @@
 {% endblock %}
 
 {% block content %}
-    <div id="images">
-        {% for image in images %}
-            <img src="{{url_for('image', filename=image)}}"></img>
-        {% endfor %}
+
+    {% set num_images = "No" if not num_images else num_images %}
+
+    {% if num_images == "No" %}
+        {% set queue = "queue" %}
+    {% else %}
+        {% set queue = '<a class="inline" href="'+ url_for('image_queue', num=0) +'">queue</a>' %}
+    {% endif %}
+
+    <div>
+        There are {{ num_images }} images in the {{ queue | safe }}.
     </div>
 {% endblock %}
