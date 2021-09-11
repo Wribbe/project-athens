@@ -81,7 +81,6 @@ def login():
     return render_template('login.html', next=endpoint_next)
 
 
-@public
 @app.route('/logout')
 def logout():
     session.clear()
