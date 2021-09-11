@@ -40,3 +40,9 @@ nav {
 .spanner {
     flex: 1;
 }
+
+header > a {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}

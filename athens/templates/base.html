@@ -6,7 +6,9 @@
     </head>
     <body>
         <header>
-            <h1>{% block header %}{% endblock %}</h1>
+            <a href="{{url_for('index')}}">
+                <h1>{% block header %}{% endblock %}</h1>
+            </a>
 
             <nav>
                 {% if 'user' in session %}
