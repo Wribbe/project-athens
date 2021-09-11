@@ -110,9 +110,8 @@ def image_queue(num):
 
 
 @public
-@app.route('/test/generate')
-def test_generate():
-    num = 30
+@app.route('/test/generate/<int:num>')
+def test_generate(num=30):
     if 'num' in request.args and request.args['num'].isdigit():
         num = int(request.args['num'])
 
