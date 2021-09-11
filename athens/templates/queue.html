@@ -8,5 +8,9 @@
     <div id="wrapper-img">
         <img src="{{ url_for('image_at_index', num=num) }}"></img>
     </div>
-    <div><a href="{{ url_for('image_queue', num=num+1)}}">Next</a></div>
+    <div id="controls">
+        <a href="{{ url_for('image_queue', num=num-1)}}">Previous</a>
+        <div class="spanner"></div>
+        <a href="{{ url_for('image_queue', num=num+1)}}">Next</a>
+    </div>
 {% endblock %}
