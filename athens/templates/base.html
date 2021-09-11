@@ -9,18 +9,17 @@
             <a href="{{url_for('index')}}">
                 <h1>{% block header %}{% endblock %}</h1>
             </a>
-
-            <nav>
-                {% if 'user' in session %}
-                    <div class="flex100"></div>
-                    <a href="{{ url_for('logout') }}">Logout</a>
-                {% endif %}
-            </nav>
-
-            {% for message in get_flashed_messages() %}
-                <div> {{ message }} </div>
-            {% endfor %}
         </header>
+        <nav>
+            {% if 'user' in session %}
+                <div class="spanner"></div>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </nav>
+
+        {% for message in get_flashed_messages() %}
+            <div> {{ message }} </div>
+        {% endfor %}
         <article>
             {% block content %}{% endblock %}
         </article>
