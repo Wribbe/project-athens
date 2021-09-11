@@ -116,7 +116,7 @@ def test_generate():
     if 'num' in request.args and request.args['num'].isdigit():
         num = int(request.args['num'])
 
-    from PIL import Image
+    from PIL import Image, ImageDraw
     import random
 
     width_min, width_max = 400, 1920
@@ -131,12 +131,36 @@ def test_generate():
             random.randint(width_min, width_max),
             random.randint(width_min, width_max)
         )
-        color = (
+        colors = [(
             random.randint(0, 255),
             random.randint(0, 255),
             random.randint(0, 255),
-        )
-        image = Image.new(mode="RGB", size=size, color=color)
+        ) for _ in range(5)]
+
+        image = Image.new(mode="RGB", size=size, color=(0,0,0))
+        draw = ImageDraw.Draw(image)
+
+        draw.rectangle(((0, 0),size), fill=colors[0])
+
+        size_border = 10
+        size_square = (size[0]-(2*size_border))/31
+        coord_x, coord_y = (size_border, size_border)
+        square_draw = True
+        while coord_y + size_square <= size[1]:
+            coord_x = size_border
+            while coord_x + size_square <= size[0]:
+                if square_draw:
+                    draw.rectangle(
+                        (
+                            (coord_x, coord_y),
+                            (coord_x+size_square, coord_y+size_square),
+                        ),
+                        fill=colors[1]
+                    )
+                coord_x += size_square
+                square_draw = not square_draw
+            coord_y += size_square
+
         image.save(PATH_IMAGES / f'{ii:04d}.png')
 
     flash(f"Generated {num} images")
