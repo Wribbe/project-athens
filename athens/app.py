@@ -70,22 +70,23 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/image/<string:filename>')
-def image(filename):
-    return send_from_directory(PATH_IMAGES, filename)
-
-
-@app.route('/image/queue/<int:num>')
+@app.route('/image/<int:num>')
 def image_at_index(num):
     return send_from_directory(PATH_IMAGES, images.name_for(session, num))
 
 
-@app.route('/queue/<num>')
+@app.route('/queue/<num>', methods=["GET", "POST"])
 def image_queue(num):
     num = int(num)
     if num < 0 or num >= images.num_in_queue(session):
         flash("Index outside of current image queue.")
         return redirect(url_for('index'))
+
+    if request.method == "POST":
+        action = request.form.get('action').lower()
+        images.action(session, action, num)
+        return redirect(url_for('image_queue', num=num+1))
+
     return render_template('queue.html', num=num)
 
 
