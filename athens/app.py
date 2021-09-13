@@ -90,6 +90,11 @@ def image_queue(num):
     return render_template('queue.html', num=num)
 
 
+@app.route('/upload', methods=["GET","POST"])
+def upload():
+    return render_template('upload.html')
+
+
 @public
 @app.route('/test/generate/<int:num>')
 def test_generate(num=30):
