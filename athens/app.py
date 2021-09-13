@@ -42,6 +42,10 @@ def index():
 @public
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
+    if session.get('user'):
+        return redirect(url_for('index'))
+
     endpoint_next = request.args.get('next')
     if request.method == "POST":
 
