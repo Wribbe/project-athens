@@ -10,4 +10,5 @@ def action(session, action, num):
     )
 
 def name_for(session, num):
-    return list(PATH_IMAGES.iterdir())[num].name
+    images = sorted(list(PATH_IMAGES.iterdir()), key=lambda p: p.name)
+    return images[num].name
