@@ -12,7 +12,7 @@
                 </a>
             </header>
             <nav>
-                {% if 'user' in session %}
+                {% if session.get('user') %}
                     <a href="{{ url_for('upload') }}">Upload Pictures</a>
                     <div class="spanner"></div>
                     <a href="{{ url_for('logout') }}">Logout</a>
