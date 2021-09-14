@@ -6,7 +6,7 @@
 
 {% block content %}
     <img src="{{ url_for('image_at_index', num=num) }}"></img>
-    <div id="controls">
+    <footer>
         <a href="{{ url_for('image_queue', num=num-1)}}">Previous</a>
         <div class="spanner"></div>
         <form action="{{ url_for('image_queue', num=num)}}" method="POST">
@@ -19,5 +19,5 @@
         </form>
         <div class="spanner"></div>
         <a href="{{ url_for('image_queue', num=num+1)}}">Next</a>
-    </div>
+    <footer>
 {% endblock %}

@@ -14,7 +14,7 @@
         {% set queue = '<a class="inline" href="'+ url_for('image_queue', num=0) +'">queue</a>' %}
     {% endif %}
 
-    <div>
+    <div id="index">
         There are {{ num_images }} images in the {{ queue | safe }}.
     </div>
 {% endblock %}
