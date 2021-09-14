@@ -26,3 +26,5 @@ PASSWORDS = {p:u for u,p in json.loads(PATH_PASSWORDS.read_text()).items()}
 PATH_IMAGES = PATH_DATA / 'images'
 if not PATH_IMAGES.is_dir():
     PATH_IMAGES.mkdir()
+
+PATH_DB = PATH_DATA / 'athens.sqlite3'

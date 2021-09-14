@@ -1,0 +1,24 @@
+CREATE TABLE image (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+    ,filename STRING NOT NULL
+);
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+    ,username STRING NOT NULL UNIQUE
+);
+
+CREATE TABLE queue_action (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+    ,name STRING NOT NULL UNIQUE
+);
+
+CREATE TABLE queue_item (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+    ,id_image INTEGER NOT NULL
+    ,id_user INTEGER NOT NULL
+    ,id_action INTEGER
+    ,FOREIGN KEY(id_image) REFERENCES image(id)
+    ,FOREIGN KEY(id_user) REFERENCES user(id)
+    ,FOREIGN KEY(id_action) REFERENCES action(id)
+);
