@@ -95,6 +95,12 @@ def image_queue(num):
 
 @app.route('/upload', methods=["GET","POST"])
 def upload():
+
+    if request.method == "POST":
+        for file in request.files.getlist('images'):
+            images.handle_upload(file)
+        return redirect(url_for('index'))
+
     return render_template('upload.html')
 
 

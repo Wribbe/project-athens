@@ -7,4 +7,16 @@
 {% endblock %}
 
 {% block content %}
+    <form id="form-upload" class="fill" action="{{url_for('upload')}}"
+          method="POST"
+          enctype="multipart/form-data">
+
+      <input type="file" name="images" accept="image/png,image/jpeg"
+             multiple>
+
+      <div>
+          <input type="submit" value="Upload">
+      </div>
+
+    </form>
 {% endblock %}

@@ -17,7 +17,8 @@ CREATE TABLE queue_item (
     id INTEGER PRIMARY KEY AUTOINCREMENT
     ,id_image INTEGER NOT NULL
     ,id_user INTEGER NOT NULL
-    ,id_action INTEGER
+    ,id_action INTEGER DEFAULT NULL
+    ,confirmed BOOLEAN DEFAULT False
     ,FOREIGN KEY(id_image) REFERENCES image(id)
     ,FOREIGN KEY(id_user) REFERENCES user(id)
     ,FOREIGN KEY(id_action) REFERENCES action(id)
