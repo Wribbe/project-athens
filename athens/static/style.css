@@ -46,6 +46,11 @@ footer {
     display: flex;
 }
 
-#index {
+.fill {
     flex: 1;
+    margin-top: 2em;
+}
+
+form input[type='submit'] {
+    margin-top: 1em;
 }
