@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% block title %}
+        Edit User
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <form class="fill" action="{{url_for('user_edit', username=username)}}" method="POST">
+        <strong>Update Password:</strong>
+        <div>
+            <label> New password:
+                <input type="password" name="password">
+            </label>
+        </div>
+        <div>
+            <label> Confirm new password:
+                <input type="password" name="password_confirm">
+            </label>
+        </div>
+        <input type="submit" value="Update">
+    </form>
+{% endblock %}

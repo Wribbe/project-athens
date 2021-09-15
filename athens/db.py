@@ -1,6 +1,7 @@
 import sqlite3
+import json
 
-from athens.config import PATH_DB, app, PASSWORDS
+from athens.config import PATH_DB, app, PASSWORDS, PATH_PASSWORDS
 from flask import g, current_app
 
 def db():
@@ -37,3 +38,9 @@ def _init_db(conn):
 
     conn.commit()
     cursor.close()
+
+
+def password_set(user, password):
+    current = json.loads(PATH_PASSWORDS.read_text())
+    current[user] = password
+    PATH_PASSWORDS.write_text(json.dumps(current, indent=2))

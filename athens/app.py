@@ -1,6 +1,6 @@
 import os
 
-from athens import images
+from athens import images, db
 from athens.config import app, PASSWORDS, PATH_IMAGES
 
 from flask import (
@@ -95,7 +95,26 @@ def upload():
     return render_template('upload.html')
 
 
-@public
+@app.route('/user/<string:username>', methods=["GET","POST"])
+def user_edit(username):
+
+    if session.get('user') != username:
+        return redirect(url_for('index'))
+
+    if request.method == "POST":
+        form_data = request.form
+        if not form_data.get('password', "").strip():
+            flash("Password cannot be empty.")
+        elif form_data['password'] != form_data['password_confirm']:
+            flash("Passwords do not match.")
+        else:
+            db.password_set(username, form_data['password'])
+            flash(f'Password for {username.title()} updated successfully.')
+        return redirect(url_for('user_edit', username=username))
+
+    return render_template('user_edit.html', username=username)
+
+
 @app.route('/test/generate/<int:num>')
 def test_generate(num=30):
     if 'num' in request.args and request.args['num'].isdigit():
