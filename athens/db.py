@@ -44,3 +44,26 @@ def password_set(user, password):
     current = json.loads(PATH_PASSWORDS.read_text())
     current[user] = password
     PATH_PASSWORDS.write_text(json.dumps(current, indent=2))
+
+
+def users():
+    cursor = db().cursor()
+    users = cursor.execute("SELECT * FROM user").fetchall()
+    cursor.close()
+    return users
+
+
+def queue_items(user):
+    session = db()
+    cursor = session.cursor()
+    queue_items = cursor.execute("""
+        SELECT * FROM queue_item
+            JOIN user ON user.id == queue_item.id_user
+            JOIN image ON image.id == queue_item.id_image
+        WHERE
+            user.name == ?
+            AND NOT queue_item.confirmed
+        ORDER BY image.filename ASC
+    """, (user,)).fetchall()
+    cursor.close()
+    return queue_items
