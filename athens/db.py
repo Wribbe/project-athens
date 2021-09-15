@@ -29,3 +29,4 @@ def init_db(conn):
     for action in ['ok','delete','skip']:
         cursor.execute('INSERT INTO queue_action (name) VALUES (?)', (action,))
     conn.commit()
+    cursor.close()
