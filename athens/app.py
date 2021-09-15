@@ -35,7 +35,7 @@ def check_auth():
 def index():
     return render_template(
         'index.html',
-        num_images=images.num_in_queue(session)
+        num_images=images.num_in_queue(session.get('user'))
     )
 
 
@@ -72,13 +72,16 @@ def logout():
 
 @app.route('/image/<int:num>')
 def image_at_index(num):
-    return send_from_directory(PATH_IMAGES, images.name_for(session, num))
+    return send_from_directory(
+        PATH_IMAGES,
+        images.name_for(session.get('user'), num)
+    )
 
 
 @app.route('/queue/<num>', methods=["GET", "POST"])
 def image_queue(num):
     num = int(num)
-    if num < 0 or num >= images.num_in_queue(session):
+    if num < 0 or num >= images.num_in_queue(session.get('user')):
         flash("Index outside of current image queue.")
         return redirect(url_for('index'))
 

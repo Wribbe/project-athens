@@ -1,7 +1,8 @@
 from athens.config import PATH_IMAGES
+from athens.db import queue_items
 
-def num_in_queue(session):
-    return len(list(PATH_IMAGES.iterdir()))
+def num_in_queue(user):
+    return len(queue_items(user))
 
 def action(session, action, num):
     print(
