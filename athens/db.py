@@ -11,7 +11,7 @@ def db():
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         if needs_init:
-            init_db(g.db)
+            _init_db(g.db)
         g.db.row_factory = sqlite3.Row
     return g.db
 
@@ -22,7 +22,7 @@ def close_db(e=None):
         db.close()
 
 
-def init_db(conn):
+def _init_db(conn):
     with current_app.open_resource('schema.sql') as f:
         conn.executescript(f.read().decode('utf8'))
     cursor = conn.cursor()
