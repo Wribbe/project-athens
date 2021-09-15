@@ -1,6 +1,6 @@
 import sqlite3
 
-from athens.config import PATH_DB, app
+from athens.config import PATH_DB, app, PASSWORDS
 from flask import g, current_app
 
 def db():
@@ -23,10 +23,17 @@ def close_db(e=None):
 
 
 def _init_db(conn):
+
     with current_app.open_resource('schema.sql') as f:
         conn.executescript(f.read().decode('utf8'))
+
     cursor = conn.cursor()
+
     for action in ['ok','delete','skip']:
         cursor.execute('INSERT INTO queue_action (name) VALUES (?)', (action,))
+
+    for username in PASSWORDS.values():
+        cursor.execute("INSERT INTO user (name) VALUES (?)", (username,))
+
     conn.commit()
     cursor.close()
