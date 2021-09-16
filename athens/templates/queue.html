@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <img src="{{ url_for('image_at_index', num=num) }}"></img>
+    <a id="anchor-fullsize" href="{{ url_for('image_at_index', num=num, fullsize=1)}}">
+        <img src="{{ url_for('image_at_index', num=num) }}"></img>
+    </a>
     <footer>
         <a href="{{ url_for('image_queue', num=num-1)}}">Previous</a>
         <div class="spanner"></div>
