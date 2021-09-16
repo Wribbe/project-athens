@@ -28,3 +28,15 @@ if not PATH_IMAGES.is_dir():
     PATH_IMAGES.mkdir()
 
 PATH_DB = PATH_DATA / 'athens.sqlite3'
+
+PATH_IMAGES_UPLOAD = PATH_IMAGES / 'uploads'
+if not PATH_IMAGES_UPLOAD.is_dir():
+    PATH_IMAGES_UPLOAD.mkdir()
+
+PATH_IMAGES_QUEUE = PATH_IMAGES / 'queue'
+if not PATH_IMAGES_QUEUE.is_dir():
+    PATH_IMAGES_QUEUE.mkdir()
+
+PATH_IMAGES_FINAL = PATH_IMAGES / 'final'
+if not PATH_IMAGES_FINAL.is_dir():
+    PATH_IMAGES_FINAL.mkdir()

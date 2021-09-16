@@ -1,7 +1,7 @@
 import os
 
 from athens import images, db
-from athens.config import app, PASSWORDS, PATH_IMAGES
+from athens.config import app, PASSWORDS, PATH_IMAGES, PATH_IMAGES_QUEUE
 
 from flask import (
     request, abort, session, render_template, redirect, url_for, flash,
@@ -73,7 +73,7 @@ def logout():
 @app.route('/image/<int:num>')
 def image_at_index(num):
     return send_from_directory(
-        PATH_IMAGES,
+        PATH_IMAGES_QUEUE,
         images.name_for(session.get('user'), num)
     )
 
