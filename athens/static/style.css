@@ -44,6 +44,8 @@ header > a {
 
 footer {
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fill {
@@ -53,4 +55,9 @@ footer {
 
 form input[type='submit'] {
     margin-top: 1em;
+}
+
+footer button {
+    height: 3em;
+    width: 5em;
 }
