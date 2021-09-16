@@ -1,7 +1,9 @@
 import os
 
 from athens import images, db
-from athens.config import app, PASSWORDS, PATH_IMAGES, PATH_IMAGES_QUEUE
+from athens.config import (
+    app, PASSWORDS, PATH_IMAGES, PATH_IMAGES_QUEUE, PATH_IMAGES_UPLOAD
+)
 
 from flask import (
     request, abort, session, render_template, redirect, url_for, flash,
@@ -72,8 +74,9 @@ def logout():
 
 @app.route('/image/<int:num>')
 def image_at_index(num):
+    fullsize = int(request.args.get('fullsize', 0)) == 1
     return send_from_directory(
-        PATH_IMAGES_QUEUE,
+        PATH_IMAGES_QUEUE if not fullsize else PATH_IMAGES_UPLOAD,
         images.name_for(session.get('user'), num)
     )
 
