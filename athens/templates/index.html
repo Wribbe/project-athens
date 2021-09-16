@@ -6,9 +6,9 @@
 
 {% block content %}
 
-    {% set num_images = "No" if not num_images else num_images %}
+    {% set num_images = "no" if not num_images else num_images %}
 
-    {% if num_images == "No" %}
+    {% if num_images == "no" %}
         {% set queue = "queue" %}
     {% else %}
         {% set queue = '<a class="inline" href="'+ url_for('image_queue', num=0) +'">queue</a>' %}
