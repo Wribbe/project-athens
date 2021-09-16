@@ -19,12 +19,13 @@ body {
     justify-content: center;
     margin: 1em;
     flex: 1;
+    height: 100%;
 }
 
 img {
     object-fit: contain;
     flex: 1;
-    max-height: 85vh;
+    height: 1px;
 }
 
 nav {
