@@ -57,9 +57,14 @@ def queue_items(user):
     session = db()
     cursor = session.cursor()
     queue_items = cursor.execute("""
-        SELECT * FROM queue_item
+        SELECT
+            queue_action.name AS action
+            ,image.filename AS filename
+            ,queue_item.confirmed AS confirmed
+        FROM queue_item
             JOIN user ON user.id == queue_item.id_user
             JOIN image ON image.id == queue_item.id_image
+            JOIN queue_action ON queue_action.id == queue_item.id_action
         WHERE
             user.name == ?
             AND NOT queue_item.confirmed
