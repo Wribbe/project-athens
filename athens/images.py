@@ -1,5 +1,5 @@
 from athens.config import PATH_IMAGES_UPLOAD, PATH_IMAGES_QUEUE
-from athens.db import queue_items
+from athens.db import queue_items, action_set
 from athens import db
 
 from PIL import Image
@@ -10,16 +10,16 @@ def num_in_queue(user):
 
 
 def action(session, action, num):
-    print(
-        f"Performing action {action} on image {num} for user "
-        f"{session['user']}"
-    )
+
     filename = name_for(session['user'], num)
     path_upload = PATH_IMAGES_UPLOAD / filename
+    path_queue = PATH_IMAGES_QUEUE / filename
+
     if action.startswith("rotate_"):
         image_rotate(path_upload, -90 if 'right' in action else 90)
         create_smaller_copy_for_queue(path_upload)
-
+    else:
+        action_set(session['user'], action, num)
 
 
 def name_for(user, num):

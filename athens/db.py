@@ -67,3 +67,23 @@ def queue_items(user):
     """, (user,)).fetchall()
     cursor.close()
     return queue_items
+
+
+def action_set(user, action, num):
+    session = db()
+    cursor = session.cursor()
+    cursor.execute("""
+        UPDATE queue_item SET id_action = (
+            SELECT id FROM queue_action WHERE queue_action.name = ?
+        )
+        WHERE
+            queue_item.id_user = (
+                SELECT id FROM user WHERE user.name = ?
+            )
+        AND
+            queue_item.id_image = (
+                SELECT id FROM image WHERE image.filename = ?
+            )
+    """, (action, user, queue_items(user)[num]['filename']))
+    session.commit()
+    cursor.close()
