@@ -82,7 +82,7 @@ def image_at_index(num):
 
 
 
-@app.route('/queue/', defaults={'num': 0})
+@app.route('/queue/', defaults={'num': 0}, methods=["GET", "POST"])
 @app.route('/queue/<num>', methods=["GET", "POST"])
 def image_queue(num):
     num = int(num)
