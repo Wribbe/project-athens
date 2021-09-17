@@ -43,7 +43,7 @@ def handle_upload(file):
 
 def create_smaller_copy_for_queue(filepath):
     with Image.open(filepath) as im:
-        div_factor = im.width // 720
+        div_factor = im.width // 360
         im_resized = im.resize(
             (im.width // div_factor, im.height // div_factor)
         )
