@@ -8,20 +8,49 @@
     <a id="anchor-fullsize" href="{{ url_for('image_at_index', num=num, fullsize=1)}}">
         <img src="{{ url_for('image_at_index', num=num) }}"></img>
     </a>
+    <form id="form_actions"
+          action="{{ url_for('image_queue', num=num)}}"
+          method="POST">
+    </form>
     <footer>
         <a href="{{ url_for('image_queue', num=num-1)}}">Previous</a>
         <div class="spanner"></div>
-        <form action="{{ url_for('image_queue', num=num)}}" method="POST">
-            <button title="Don't upload but keep the image" name="action" value="skip">
-                Skip
-            </button>
-            <button name="action" value="delete" title="Throw away the image">
-                Delete
-            </button>
-            <button name="action" value="ok" title="Image is ok and should be uploaded">
-                OK
-            </button>
-        </form>
+
+        <button form="form_actions"
+                name="action"
+                value="rotate_left">
+            &olarr;
+        </button>
+
+        <div class="spanner"></div>
+
+        <button form="form_actions"
+                title="Don't upload but keep the image"
+                name="action"
+                value="skip">
+            Skip
+        </button>
+        <button form="form_actions"
+                name="action"
+                value="delete"
+                title="Throw away the image">
+            Delete
+        </button>
+        <button form="form_actions"
+                name="action"
+                value="ok"
+                title="Image is ok and should be uploaded">
+            OK
+        </button>
+
+        <div class="spanner"></div>
+
+        <button form="form_actions"
+                name="action"
+                value="rotate_right">
+            &orarr;
+        </button>
+
         <div class="spanner"></div>
         <a href="{{ url_for('image_queue', num=num+1)}}">Next</a>
     <footer>
