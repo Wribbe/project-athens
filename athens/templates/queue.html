@@ -24,24 +24,14 @@
 
         <div class="spanner"></div>
 
-        <button form="form_actions"
-                title="Don't upload but keep the image"
-                name="action"
-                value="skip">
-            Skip
-        </button>
+        {% for action in actions %}
         <button form="form_actions"
                 name="action"
-                value="delete"
-                title="Throw away the image">
-            Delete
+                class="{{ 'selected' if action.selected else ''}}"
+                value="{{ action.value }}">
+            {{ action.get('text', action.value | title) }}
         </button>
-        <button form="form_actions"
-                name="action"
-                value="ok"
-                title="Image is ok and should be uploaded">
-            OK
-        </button>
+        {% endfor %}
 
         <div class="spanner"></div>
 

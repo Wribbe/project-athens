@@ -2,7 +2,7 @@ import os
 
 from athens import images, db
 from athens.config import (
-    app, PASSWORDS, PATH_IMAGES, PATH_IMAGES_QUEUE, PATH_IMAGES_UPLOAD
+    app, PASSWORDS, PATH_IMAGES, PATH_IMAGES_QUEUE, PATH_IMAGES_UPLOAD, ACTIONS
 )
 
 from flask import (
@@ -86,7 +86,8 @@ def image_at_index(num):
 @app.route('/queue/<num>', methods=["GET", "POST"])
 def image_queue(num):
     num = int(num)
-    if num < 0 or num >= images.num_in_queue(session.get('user')):
+    user = session.get('user')
+    if num < 0 or num >= images.num_in_queue(user):
         flash("Index outside of current image queue.")
         return redirect(url_for('index'))
 
@@ -96,7 +97,16 @@ def image_queue(num):
         num = num if action.startswith("rotate_") else num+1
         return redirect(url_for('image_queue', num=num))
 
-    return render_template('queue.html', num=num)
+    queue_actions = [q['action'] for q in db.queue_items(user)]
+
+    actions = []
+    for action in ACTIONS:
+        actions.append({
+            'value': action,
+            'selected': action == queue_actions[num],
+        })
+
+    return render_template('queue.html', num=num, actions=actions)
 
 
 @app.route('/upload', methods=["GET","POST"])

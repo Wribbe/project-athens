@@ -68,3 +68,7 @@ footer button {
     height: 3em;
     width: 5em;
 }
+
+footer button.selected {
+    background-color: green;
+}
