@@ -93,7 +93,8 @@ def image_queue(num):
     if request.method == "POST":
         action = request.form.get('action').lower()
         images.action(session, action, num)
-        return redirect(url_for('image_queue', num=num+1))
+        num = num if action.startswith("rotate_") else num+1
+        return redirect(url_for('image_queue', num=num))
 
     return render_template('queue.html', num=num)
 

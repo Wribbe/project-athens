@@ -14,6 +14,12 @@ def action(session, action, num):
         f"Performing action {action} on image {num} for user "
         f"{session['user']}"
     )
+    filename = name_for(session['user'], num)
+    path_upload = PATH_IMAGES_UPLOAD / filename
+    if action.startswith("rotate_"):
+        image_rotate(path_upload, -90 if 'right' in action else 90)
+        create_smaller_copy_for_queue(path_upload)
+
 
 
 def name_for(user, num):
@@ -48,3 +54,9 @@ def create_smaller_copy_for_queue(filepath):
             (im.width // div_factor, im.height // div_factor)
         )
         im_resized.save(PATH_IMAGES_QUEUE / filepath.name)
+
+
+def image_rotate(filepath, angle):
+    with Image.open(filepath) as im:
+        im_rotated = im.rotate(angle, expand=True)
+        im_rotated.save(filepath)
