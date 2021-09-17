@@ -64,7 +64,7 @@ def queue_items(user):
         FROM queue_item
             JOIN user ON user.id == queue_item.id_user
             JOIN image ON image.id == queue_item.id_image
-            JOIN queue_action ON queue_action.id == queue_item.id_action
+            LEFT JOIN queue_action ON queue_action.id == queue_item.id_action
         WHERE
             user.name == ?
             AND NOT queue_item.confirmed
