@@ -41,4 +41,4 @@ PATH_IMAGES_FINAL = PATH_IMAGES / 'final'
 if not PATH_IMAGES_FINAL.is_dir():
     PATH_IMAGES_FINAL.mkdir()
 
-ACTIONS = ['ok','delete','skip']
+ACTIONS = ['skip','delete','ok']
